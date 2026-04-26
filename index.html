@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A calm, scrollable guide: how ASAP can earn admin on a Discord server — roles, trust, and what actually works." />
+  <title>ASAP → Admin · Discord trust guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="progress-track" aria-hidden="true">
+    <div class="progress-fill" id="scrollProgress"></div>
+  </div>
+
+  <header class="site-header" id="top">
+    <div class="header-inner">
+      <a href="#top" class="logo" data-smooth>vrtx</a>
+      <button type="button" class="theme-chip" id="focusMode" aria-pressed="false" title="Reduce motion & soften accents">
+        <span class="chip-dot"></span>
+        Calm mode
+      </button>
+    </div>
+  </header>
+
+  <nav class="rail" aria-label="Sections">
+    <ul class="rail-list" id="railList"></ul>
+  </nav>
+
+  <main class="main">
+    <section class="hero panel" id="intro" data-section>
+      <p class="eyebrow">Discord · roles · trust</p>
+      <h1>How ASAP can <em>actually</em> get admin on a server</h1>
+      <p class="lede">
+        Admin isn’t a setting you flip — it’s <strong>permission bundles</strong> the owner trusts you with.
+        This page is a scroll-through playbook: what to ask for, how to prove you’re safe, and what “admin” really means.
+      </p>
+      <div class="hero-actions">
+        <button type="button" class="btn primary" id="btnStart">Begin the guide</button>
+        <button type="button" class="btn ghost" id="btnJumpChecklist">Jump to checklist</button>
+      </div>
+      <div class="hero-stats" role="presentation">
+        <div class="stat">
+          <span class="stat-num" id="statSections">0</span>
+          <span class="stat-label">sections</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">∞</span>
+          <span class="stat-label">patience if you’re real</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="reality" data-section>
+      <h2>Reality check</h2>
+      <div class="card-grid">
+        <article class="card flip-card" tabindex="0" data-flip>
+          <div class="flip-inner">
+            <div class="flip-face front">
+              <h3>What “Admin” usually is</h3>
+              <p>Tap or click to flip →</p>
+            </div>
+            <div class="flip-face back">
+              <p>A role with dangerous permissions: kick/ban, manage channels, manage roles, webhooks, server settings. Owners rarely hand this to strangers.</p>
+            </div>
+          </div>
+        </article>
+        <article class="card">
+          <h3>What owners want instead</h3>
+          <p>Someone who <strong>doesn’t need</strong> full admin — just the <em>minimum</em> permissions to do the job (mod, events, bots, etc.).</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel" id="permissions" data-section>
+      <h2>Permission map</h2>
+      <p class="section-lede">Hover a row to highlight. Click <strong>Copy</strong> to paste into your own notes or ticket.</p>
+      <div class="perm-table-wrap">
+        <table class="perm-table" id="permTable">
+          <thead>
+            <tr>
+              <th>Permission</th>
+              <th>Why it matters</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="permBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel" id="path" data-section>
+      <h2>Two paths that work</h2>
+      <div class="tabs-like" role="tablist" aria-label="Paths">
+        <button type="button" class="path-tab active" role="tab" aria-selected="true" data-path="gradual" id="tabGradual">Gradual trust</button>
+        <button type="button" class="path-tab" role="tab" aria-selected="false" data-path="scoped" id="tabScoped">Scoped “mini-admin”</button>
+      </div>
+      <div class="path-panels">
+        <div class="path-panel active" id="panelGradual" role="tabpanel">
+          <ol class="steps">
+            <li>Join, behave, be visible for weeks — not hours.</li>
+            <li>Help without being asked: welcome people, answer FAQs, report issues calmly.</li>
+            <li>Ask for <strong>mod</strong> first (timeout, delete messages) — not Administrator.</li>
+            <li>After consistency, owner may duplicate mod role and add one dangerous perm at a time.</li>
+          </ol>
+        </div>
+        <div class="path-panel" id="panelScoped" role="tabpanel" hidden>
+          <ol class="steps">
+            <li>Define exactly what ASAP needs: “manage this category only” or “manage bot role below X.”</li>
+            <li>Owner creates a <strong>new role</strong> with only those toggles — never the Administrator checkbox unless the whole server is yours.</li>
+            <li>Put the role <em>below</em> the owner’s top role so hierarchy stays sane.</li>
+            <li>Document it in a pinned message so future mods understand why that role exists.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="checklist" data-section>
+      <h2>Before you ask</h2>
+      <p class="section-lede">Check things off — they save locally in your browser.</p>
+      <ul class="checklist" id="checklist"></ul>
+      <p class="reset-row">
+        <button type="button" class="btn text" id="btnResetChecks">Reset checklist</button>
+      </p>
+    </section>
+
+    <section class="panel" id="message" data-section>
+      <h2>Message builder</h2>
+      <p class="section-lede">Pick a tone. Edit the text. Copy when ready — paste into Discord.</p>
+      <div class="builder">
+        <div class="builder-controls">
+          <label class="sr-only" for="toneSelect">Tone</label>
+          <select id="toneSelect" class="select">
+            <option value="humble">Humble / first ask</option>
+            <option value="technical">Technical / scoped role</option>
+            <option value="short">Ultra short</option>
+          </select>
+          <button type="button" class="btn primary" id="btnCopyMessage">Copy message</button>
+        </div>
+        <textarea id="messageOut" class="textarea" rows="8" spellcheck="true"></textarea>
+        <p class="copy-toast" id="copyToast" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="panel" id="faq" data-section>
+      <h2>Quick answers</h2>
+      <div class="accordion" id="faqAccordion"></div>
+    </section>
+
+    <footer class="site-footer panel flat">
+      <p>Static site — drop the <code>vrtx</code> folder into any host. For <a href="https://pages.github.com/" rel="noopener noreferrer">GitHub Pages</a>, publish from <code>/vrtx</code> or move these files to repo root.</p>
+      <p class="fine">Educational layout only. Respect server rules and real people.</p>
+    </footer>
+  </main>
+
+  <button type="button" class="fab" id="fabTop" aria-label="Back to top" title="Top">↑</button>
+
+  <div class="global-toast" id="globalToast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
