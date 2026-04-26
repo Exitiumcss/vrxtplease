@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="If you run the server: a calm, detailed brief on why elevating ASAP with better — not necessarily Administrator — permissions can be the smart move." />
+  <title>vrtx · Elevating ASAP — owner brief</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+:root {
+  --bg: #f7f7f8;
+  --surface: #ffffff;
+  --text: #0f0f10;
+  --muted: #5b5b62;
+  --line: #e6e6ea;
+  --accent: #1d4ed8;
+  --accent-2: #4f46e5;
+  --accent-soft: #eef2ff;
+  --good-bg: #ecfdf5;
+  --good-line: #a7f3d0;
+  --warn-bg: #fffbeb;
+  --warn-line: #fde68a;
+  --bad-bg: #fef2f2;
+  --bad-line: #fecaca;
+  --radius: 16px;
+  --radius-sm: 11px;
+  --shadow: 0 1px 2px rgba(0,0,0,.04), 0 10px 28px rgba(0,0,0,.07);
+  --font: "DM Sans", system-ui, -apple-system, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+  --max: 800px;
+  --header-h: 60px;
+  --rail-w: 48px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+html.calm-root{scroll-behavior:auto}
+body{margin:0;font-family:var(--font);font-size:1.0625rem;line-height:1.65;color:var(--text);background:var(--bg);padding-top:var(--header-h);padding-left:calc(var(--rail-w)+10px);padding-right:max(18px,env(safe-area-inset-right));padding-bottom:5rem}
+@media(max-width:900px){body{padding-left:max(18px,env(safe-area-inset-left))}.rail{display:none}}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.progress-track{position:fixed;top:0;left:0;right:0;height:3px;background:var(--line);z-index:200}
+.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .12s ease-out}
+body.calm-mode .progress-fill{background:#64748b;transition:none}
+.site-header{position:fixed;top:0;left:0;right:0;height:var(--header-h);background:rgba(247,247,248,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);z-index:150}
+.header-inner{max-width:calc(var(--max)+var(--rail-w)+72px);margin:0 auto;padding:0 22px;height:100%;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-weight:800;letter-spacing:-.05em;font-size:1.2rem;color:var(--text);text-decoration:none}
+.header-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.theme-chip{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-family:var(--font);font-size:.82rem;cursor:pointer;color:var(--muted)}
+.theme-chip[aria-pressed="true"]{border-color:#cbd5e1;background:#f1f5f9;color:var(--text)}
+.chip-dot{width:8px;height:8px;border-radius:50%;background:#94a3b8}
+.theme-chip[aria-pressed="true"] .chip-dot{background:var(--accent)}
+.rail{position:fixed;top:50%;left:max(10px,env(safe-area-inset-left));transform:translateY(-50%);z-index:140;width:var(--rail-w)}
+.rail-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+.rail-list a{display:block;width:10px;height:10px;margin:0 auto;border-radius:50%;background:var(--line);border:2px solid transparent;transition:transform .2s ease,background .2s ease}
+.rail-list a:hover,.rail-list a:focus-visible{background:#cbd5e1;transform:scale(1.12);outline:none}
+.rail-list a.active{background:var(--accent);transform:scale(1.22)}
+body.calm-mode .rail-list a.active{background:#475569}
+.main{max-width:var(--max);margin:0 auto}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(1.35rem,3.5vw,2.1rem);margin-bottom:1.35rem;box-shadow:var(--shadow)}
+.panel.flat{box-shadow:none;background:transparent;border:none}
+.hero.panel{padding-top:clamp(1.75rem,4vw,2.75rem)}
+.eyebrow{font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin:0 0 .65rem}
+.badge-inline{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent);border:1px solid #c7d2fe;margin-bottom:.75rem}
+h1{font-size:clamp(1.9rem,4.2vw,2.5rem);line-height:1.12;font-weight:800;letter-spacing:-.035em;margin:0 0 .85rem}
+h1 em{font-style:normal;color:var(--accent)}
+body.calm-mode h1 em{color:var(--text);text-decoration:underline;text-decoration-color:#cbd5e1;text-underline-offset:4px}
+.lede{margin:0 0 1.1rem;color:var(--muted);font-size:1.06rem;max-width:62ch}
+.lede strong{color:var(--text)}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:1.35rem}
+.btn{font-family:var(--font);font-size:.9rem;font-weight:600;padding:11px 18px;border-radius:var(--radius-sm);border:none;cursor:pointer;transition:transform .12s ease,box-shadow .12s ease}
+.btn:active{transform:scale(.98)}
+.btn.primary{background:var(--accent);color:#fff;box-shadow:0 2px 10px rgba(29,78,216,.32)}
+body.calm-mode .btn.primary{background:var(--text);box-shadow:none}
+.btn.ghost{background:var(--surface);color:var(--text);border:1px solid var(--line)}
+.btn.sm{padding:8px 14px;font-size:.82rem;border-radius:999px}
+.btn.dark{background:var(--text);color:#fff;border:none}
+.btn.accent-soft{background:var(--accent-soft);color:#1e3a8a;border:1px solid #c7d2fe}
+.btn.text{background:transparent;color:var(--muted);padding:8px 10px;font-weight:500;text-decoration:underline;text-underline-offset:3px}
+.hero-stats{display:flex;flex-wrap:wrap;gap:1.75rem;padding-top:1.25rem;border-top:1px solid var(--line)}
+.stat-num{display:block;font-size:1.55rem;font-weight:800;letter-spacing:-.02em}
+.stat-label{font-size:.78rem;color:var(--muted)}
+h2{font-size:1.28rem;font-weight:800;letter-spacing:-.02em;margin:0 0 .5rem}
+h3{font-size:1.05rem;font-weight:700;margin:0 0 .4rem}
+.section-lede{margin:0 0 1rem;color:var(--muted);font-size:.96rem;max-width:65ch}
+.pull{margin:1.35rem 0;padding:.4rem 0 .4rem 1rem;border-left:4px solid var(--accent);font-size:1.08rem;font-weight:600;color:var(--text);line-height:1.45}
+.prose p{margin:0 0 1rem;color:var(--muted);font-size:1.01rem}
+.prose p:last-child{margin-bottom:0}
+.owner-note{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:var(--radius-sm);padding:1rem 1.1rem;font-size:.95rem;color:#78350f;margin:1rem 0}
+.card-grid{display:grid;gap:1rem}
+@media(min-width:600px){.card-grid{grid-template-columns:1fr 1fr}}
+.card{border:1px solid var(--line);border-radius:var(--radius-sm);padding:1.15rem;background:#fafafa}
+.card p{margin:0;color:var(--muted);font-size:.94rem}
+.flip-card{perspective:1000px;cursor:pointer;min-height:150px;padding:0;background:transparent;border:none}
+.flip-card:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.flip-inner{position:relative;width:100%;min-height:150px;transition:transform .55s ease;transform-style:preserve-3d}
+.flip-card.is-flipped .flip-inner{transform:rotateY(180deg)}
+body.calm-mode .flip-inner{transition:none}
+.flip-face{position:absolute;inset:0;backface-visibility:hidden;border:1px solid var(--line);border-radius:var(--radius-sm);padding:1.1rem;display:flex;flex-direction:column;justify-content:center;background:var(--surface)}
+.flip-face.back{transform:rotateY(180deg);background:var(--accent-soft)}
+.tier-grid{display:grid;gap:12px}
+@media(min-width:720px){.tier-grid{grid-template-columns:repeat(3,1fr)}}
+.tier-card{text-align:left;border:2px solid var(--line);border-radius:var(--radius-sm);padding:1.1rem 1rem;background:var(--surface);cursor:pointer;transition:border-color .2s,box-shadow .2s,background .2s}
+.tier-card:hover{border-color:#cbd5e1;box-shadow:0 4px 14px rgba(0,0,0,.05)}
+.tier-card.selected{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 6px 20px rgba(29,78,216,.12)}
+.tier-card .tier-k{font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tier-card h3{margin:.35rem 0 .25rem;font-size:1rem}
+.tier-card .tier-d{font-size:.85rem;color:var(--muted);line-height:1.45}
+.tier-summary{margin-top:1rem;padding:1rem;border-radius:var(--radius-sm);border:1px dashed var(--line);background:#fafafa;font-size:.9rem;color:var(--muted)}
+.tier-summary strong{color:var(--text)}
+.compare{display:grid;gap:12px}
+@media(min-width:640px){.compare{grid-template-columns:1fr 1fr}}
+.compare-box{padding:1.1rem;border-radius:var(--radius-sm);border:1px solid var(--line)}
+.compare-box.bad{background:var(--bad-bg);border-color:var(--bad-line)}
+.compare-box.good{background:var(--good-bg);border-color:var(--good-line)}
+.compare-box h3{margin-top:0}
+.compare-box ul{margin:0;padding-left:1.1rem;color:var(--muted);font-size:.92rem}
+.btn-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:.75rem}
+.dual-check{display:grid;gap:1.25rem}
+@media(min-width:700px){.dual-check{grid-template-columns:1fr 1fr}}
+.dual-block h3{font-size:.95rem;margin:0 0 .5rem}
+.perm-table-wrap{overflow-x:auto;border-radius:var(--radius-sm);border:1px solid var(--line)}
+.perm-table{width:100%;border-collapse:collapse;font-size:.9rem}
+.perm-table th,.perm-table td{padding:11px 12px;text-align:left;border-bottom:1px solid var(--line)}
+.perm-table th{background:#f4f4f6;font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.perm-table tbody tr{transition:background .12s ease}
+.perm-table tbody tr:hover{background:#f8fafc}
+.perm-table tbody tr:last-child td{border-bottom:none}
+.btn-mini{font-family:var(--font);font-size:.72rem;padding:5px 9px;border-radius:6px;border:1px solid var(--line);background:var(--surface);cursor:pointer}
+.btn-mini:hover{border-color:var(--accent);color:var(--accent)}
+.tabs-like{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:.85rem}
+.path-tab{font-family:var(--font);font-size:.86rem;padding:9px 15px;border-radius:999px;border:1px solid var(--line);background:#f8fafc;cursor:pointer;color:var(--muted)}
+.path-tab.active{background:var(--text);color:#fff;border-color:var(--text)}
+body.calm-mode .path-tab.active{background:#334155}
+.path-panel{display:none;padding-top:.5rem}
+.path-panel.active{display:block}
+.steps{margin:0;padding-left:1.15rem;color:var(--muted)}
+.steps li{margin-bottom:.55rem}
+.steps strong{color:var(--text)}
+.checklist{list-style:none;margin:0;padding:0}
+.checklist li{margin-bottom:9px}
+.check-item{display:flex;align-items:flex-start;gap:11px;padding:12px 14px;border-radius:var(--radius-sm);border:1px solid var(--line);background:#fafafa;cursor:pointer;transition:border-color .15s ease,background .15s ease}
+.check-item:hover{border-color:#cbd5e1}
+.check-item.is-done{background:var(--good-bg);border-color:var(--good-line)}
+.check-item input{width:18px;height:18px;margin-top:3px;accent-color:var(--accent);cursor:pointer;flex-shrink:0}
+.check-item span{color:var(--text);font-size:.93rem}
+.check-item.is-done span{color:var(--muted);text-decoration:line-through;text-decoration-color:#86efac}
+.builder-controls{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:10px}
+.select{font-family:var(--font);font-size:.9rem;padding:9px 12px;border-radius:var(--radius-sm);border:1px solid var(--line);background:var(--surface);flex:1;min-width:180px}
+.textarea{width:100%;font-family:var(--mono);font-size:.78rem;line-height:1.5;padding:12px;border-radius:var(--radius-sm);border:1px solid var(--line);resize:vertical;background:#fcfcfc;min-height:160px}
+.global-toast{position:fixed;left:50%;bottom:86px;transform:translateX(-50%) translateY(16px);max-width:min(92vw,380px);padding:11px 18px;font-size:.88rem;text-align:center;background:var(--text);color:#fff;border-radius:999px;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:opacity .22s ease,transform .22s ease;z-index:170}
+.global-toast.is-visible{opacity:1;transform:translateX(-50%) translateY(0)}
+body.calm-mode .global-toast{transition:none}
+.copy-toast{min-height:1.35rem;margin:8px 0 0;font-size:.84rem;color:var(--accent)}
+.accordion-item{border:1px solid var(--line);border-radius:var(--radius-sm);margin-bottom:7px;overflow:hidden;background:var(--surface)}
+.acc-btn{width:100%;text-align:left;font-family:var(--font);font-size:.95rem;font-weight:700;padding:14px 16px;border:none;background:#f8fafc;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;color:var(--text)}
+.acc-btn:hover{background:#f1f5f9}
+.acc-icon{font-size:1.15rem;color:var(--muted);transition:transform .22s ease}
+.acc-btn[aria-expanded="true"] .acc-icon{transform:rotate(45deg)}
+body.calm-mode .acc-btn[aria-expanded="true"] .acc-icon{transition:none}
+.acc-panel{padding:0 16px;max-height:0;overflow:hidden;transition:max-height .32s ease,padding .32s ease}
+.acc-panel.open{padding:0 16px 14px;max-height:560px}
+body.calm-mode .acc-panel{transition:none}
+.acc-panel p{margin:0;color:var(--muted);font-size:.92rem}
+.site-footer p{margin:0 0 .65rem;font-size:.88rem;color:var(--muted)}
+.site-footer code{font-family:var(--mono);font-size:.8em;background:var(--line);padding:2px 6px;border-radius:4px}
+.site-footer a{color:var(--accent)}
+.fine{font-size:.8rem!important;opacity:.88}
+.fab{position:fixed;bottom:max(22px,env(safe-area-inset-bottom));right:max(20px,env(safe-area-inset-right));width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow);font-size:1.15rem;cursor:pointer;opacity:0;pointer-events:none;transform:translateY(10px);transition:opacity .22s ease,transform .22s ease;z-index:160}
+.fab.visible{opacity:1;pointer-events:auto;transform:translateY(0)}
+.fab:hover{border-color:var(--accent);color:var(--accent)}
+.commit-row{display:flex;flex-wrap:wrap;gap:8px;margin:1rem 0}
+.commit-chip{font-family:var(--font);font-size:.82rem;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);cursor:pointer;color:var(--muted)}
+.commit-chip.on{background:var(--text);color:#fff;border-color:var(--text)}
+.announce-grid{display:grid;gap:10px}
+@media(min-width:560px){.announce-grid{grid-template-columns:1fr 1fr}}
+.announce-card{border:1px solid var(--line);border-radius:var(--radius-sm);padding:1rem;background:#fafafa}
+.announce-card p{margin:0 0 .65rem;font-size:.88rem;color:var(--muted)}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.flip-inner,.progress-fill,.fab,.acc-panel,.acc-icon{transition:none!important}}
+  </style>
+</head>
+<body>
+  <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="scrollProgress"></div></div>
+
+  <header class="site-header" id="top">
+    <div class="header-inner">
+      <a href="#top" class="logo" data-smooth>vrtx</a>
+      <div class="header-actions">
+        <button type="button" class="theme-chip" id="focusMode" aria-pressed="false" title="Less motion, softer color"><span class="chip-dot"></span>Calm</button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="rail" aria-label="Sections"><ul class="rail-list" id="railList"></ul></nav>
+
+  <main class="main">
+    <section class="hero panel" id="intro" data-section>
+      <span class="badge-inline">Written for whoever runs this server</span>
+      <p class="eyebrow">Elevate with intent · not by accident</p>
+      <h1>You’re deciding whether ASAP deserves <em>better</em> permissions</h1>
+      <p class="lede">
+        This isn’t a guilt trip and it isn’t a demand — it’s a <strong>structured brief</strong> you can skim in order:
+        what “more perms” actually buys the server, how to grant <em>more power with less risk</em> than raw Administrator, and ready-to-copy wording if you choose to say yes (or “yes, but scoped”).
+      </p>
+      <div class="hero-actions">
+        <button type="button" class="btn primary" id="btnLens">Why elevate at all</button>
+        <button type="button" class="btn ghost" id="btnTiers">Pick a permission tier</button>
+        <button type="button" class="btn ghost" id="btnAnnounce">Copy announcements</button>
+        <button type="button" class="btn accent-soft" id="btnDecision">Decision checklists</button>
+      </div>
+      <div class="hero-stats" role="presentation">
+        <div class="stat"><span class="stat-num" id="statSections">0</span><span class="stat-label">sections</span></div>
+        <div class="stat"><span class="stat-num">3×</span><span class="stat-label">clearer than a wall of pings</span></div>
+      </div>
+    </section>
+
+    <section class="panel" id="lens" data-section>
+      <h2>The lens: you’re not “giving admin,” you’re buying capacity</h2>
+      <p class="section-lede">Better permissions for the right person reduce your load: fewer tickets stuck on you, faster cleanups, calmer voice chats, events that actually ship.</p>
+      <div class="prose">
+        <p>When ASAP asks for more access, the useful question isn’t “Do they deserve power?” — it’s <strong>“What recurring work will leave my plate if they can do it safely?”</strong> Moderation queues, channel hygiene, onboarding flows, bot hygiene, and incident triage are all <em>skills</em>. If ASAP already demonstrates judgment in public threads, that’s capacity you can unlock.</p>
+        <p class="pull">The best owners don’t hoard every toggle — they distribute <em>least privilege</em> with clear boundaries so one person isn’t the bottleneck at 2 a.m.</p>
+        <p>Elevating ASAP doesn’t have to mean the <strong>Administrator</strong> checkbox. Often the <em>better</em> move is a custom role: stronger than “trusted member,” weaker than “god mode,” with a name that explains itself in the member list (e.g. <em>Senior Mod · Events</em>).</p>
+        <p>If you’ve already seen them de-escalate drama, document decisions, and ping staff privately instead of farming chaos in general chat — that’s the behavioral signal that <strong>more permission is an investment</strong>, not a gamble.</p>
+      </div>
+      <div class="owner-note"><strong>Note for ASAP:</strong> if you’re the one sharing this page, stay quiet while they read. Let the structure do the talking.</div>
+    </section>
+
+    <section class="panel" id="signals" data-section>
+      <h2>Signals that say “yes, and make it <em>better</em> than before”</h2>
+      <p class="section-lede">Tap the cards. If several of these feel true, you’re not “being soft” — you’re recognizing operational maturity.</p>
+      <div class="card-grid">
+        <article class="card flip-card" tabindex="0" data-flip>
+          <div class="flip-inner">
+            <div class="flip-face front"><h3>Consistency beats charisma</h3><p>Flip →</p></div>
+            <div class="flip-face back"><p>They show up on slow days, not only when there’s drama. That’s the pattern you want before broader deletes, kicks, or channel moves.</p></div>
+          </div>
+        </article>
+        <article class="card flip-card" tabindex="0" data-flip>
+          <div class="flip-inner">
+            <div class="flip-face front"><h3>They think in systems</h3><p>Flip →</p></div>
+            <div class="flip-face back"><p>They suggest pinned FAQs, role names that make sense, and backup mods — not just “give me perms.” That’s co-ownership energy without co-owning the server.</p></div>
+          </div>
+        </article>
+        <article class="card flip-card" tabindex="0" data-flip>
+          <div class="flip-inner">
+            <div class="flip-face front"><h3>They respect audit trails</h3><p>Flip →</p></div>
+            <div class="flip-face back"><p>They know actions are logged. They explain bans/timeouts in staff channels. That’s the mindset that survives <em>real</em> elevated permissions.</p></div>
+          </div>
+        </article>
+        <article class="card flip-card" tabindex="0" data-flip>
+          <div class="flip-inner">
+            <div class="flip-face front"><h3>They escalate instead of flexing</h3><p>Flip →</p></div>
+            <div class="flip-face back"><p>Hard cases go to you or senior staff. Public moderation stays boring and short. That’s how you sleep after granting more tools.</p></div>
+          </div>
+        </article>
+      </div>
+      <p class="section-lede" style="margin-top:1.25rem">Quick vibe check — tap what feels true right now (optional, resets on refresh):</p>
+      <div class="commit-row" id="commitRow" aria-label="Quick signals"></div>
+    </section>
+
+    <section class="panel" id="tiers" data-section>
+      <h2>Pick a tier — then copy the staff brief</h2>
+      <p class="section-lede">Three realistic packages. None of them require the nuclear Administrator flag to meaningfully upgrade someone. Select one; the summary updates for your staff notes or DM to ASAP.</p>
+      <div class="tier-grid" id="tierGrid" role="radiogroup" aria-label="Permission tier">
+        <button type="button" class="tier-card selected" role="radio" aria-checked="true" data-tier="core" id="tierCore">
+          <span class="tier-k">Tier A</span>
+          <h3>Mod core</h3>
+          <p class="tier-d">Timeouts, delete messages, read mod channels. The daily driver for order without restructuring the server.</p>
+        </button>
+        <button type="button" class="tier-card" role="radio" aria-checked="false" data-tier="power" id="tierPower">
+          <span class="tier-k">Tier B</span>
+          <h3>Power mod</h3>
+          <p class="tier-d">Adds kick, mute in voice contextually, pin/manage messages where you allow. For someone already carrying your nights.</p>
+        </button>
+        <button type="button" class="tier-card" role="radio" aria-checked="false" data-tier="scoped" id="tierScoped">
+          <span class="tier-k">Tier C</span>
+          <h3>Scoped “admin energy”</h3>
+          <p class="tier-d">Targeted channel/category management + bot role management below a ceiling. Still not global Administrator.</p>
+        </button>
+      </div>
+      <div class="tier-summary" id="tierSummary" aria-live="polite"></div>
+      <div class="btn-row">
+        <button type="button" class="btn primary sm" id="btnCopyTierBrief">Copy tier brief</button>
+        <button type="button" class="btn ghost sm" id="btnCopyTierBullets">Copy Discord bullet list</button>
+      </div>
+    </section>
+
+    <section class="panel" id="compare" data-section>
+      <h2>Administrator vs “better perms” (scoped)</h2>
+      <p class="section-lede">You can give ASAP <strong>more meaningful authority</strong> without handing them the one toggle that bypasses most safeguards.</p>
+      <div class="compare">
+        <div class="compare-box bad">
+          <h3>Blanket Administrator</h3>
+          <ul>
+            <li>Huge blast radius if account is lost or rushed</li>
+            <li>Harder to explain to members (“why do they have god?”)</li>
+            <li>Often <em>more</em> than the work actually requires</li>
+          </ul>
+        </div>
+        <div class="compare-box good">
+          <h3>Scoped elevation</h3>
+          <ul>
+            <li>Matches real tasks: mod, events, bots, category builds</li>
+            <li>Readable role name + pinned staff rationale</li>
+            <li>Easier to expand later than to walk back a disaster</li>
+          </ul>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button type="button" class="btn dark sm" id="btnCopyCompare">Copy comparison (for staff chat)</button>
+      </div>
+    </section>
+
+    <section class="panel" id="permissions" data-section>
+      <h2>Permission reference + one-click rows</h2>
+      <p class="section-lede">Use this when you’re toggling Discord’s role editor. Copy a row into your change log or ticket.</p>
+      <div class="btn-row" style="margin-bottom:10px">
+        <button type="button" class="btn ghost sm" id="btnCopySafeBundle">Copy “safe elevation” bundle note</button>
+        <button type="button" class="btn ghost sm" id="btnCopyAuditReminder">Copy audit-trail reminder for staff</button>
+      </div>
+      <div class="perm-table-wrap">
+        <table class="perm-table" id="permTable">
+          <thead><tr><th>Permission</th><th>Owner lens</th><th></th></tr></thead>
+          <tbody id="permBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel" id="safeguards" data-section>
+      <h2>If you’re leaning “yes” — stack safeguards first</h2>
+      <div class="tabs-like" role="tablist" aria-label="Safeguard views">
+        <button type="button" class="path-tab active" role="tab" aria-selected="true" data-path="stack" id="tabStack">The stack</button>
+        <button type="button" class="path-tab" role="tab" aria-selected="false" data-path="time" id="tabTime">Time-based</button>
+      </div>
+      <div class="path-panel active" id="panelStack" role="tabpanel">
+        <ol class="steps">
+          <li><strong>Role position:</strong> keep new power <em>below</em> your top staff role so hierarchy can’t be self-edited upward by mistake.</li>
+          <li><strong>Name the role like a job:</strong> “ASAP · Senior Mod” reads clearer than “Admin 2.”</li>
+          <li><strong>Pinned staff policy:</strong> one message: what they can do solo vs what needs a second pair of eyes.</li>
+          <li><strong>Backup mod:</strong> ensure someone else is awake in overlapping windows — nobody should be lone-wolf with ban perms during drama spikes.</li>
+        </ol>
+      </div>
+      <div class="path-panel" id="panelTime" role="tabpanel" hidden>
+        <ol class="steps">
+          <li><strong>Trial window:</strong> “30 days at Tier B, review on [date]” — reduces pressure to decide forever today.</li>
+          <li><strong>Office hours:</strong> heavier tools only when senior staff is around — optional but sane for newer servers.</li>
+          <li><strong>Retro:</strong> quick staff thread after first week: what broke, what didn’t, what to add/remove.</li>
+        </ol>
+      </div>
+      <div class="btn-row">
+        <button type="button" class="btn primary sm" id="btnCopySafeguards">Copy safeguard checklist</button>
+      </div>
+    </section>
+
+    <section class="panel" id="decision" data-section>
+      <h2>Decision desk — two checklists</h2>
+      <p class="section-lede">Left: your read as owner/mod lead. Right: what ASAP should already be modeling. Checked items persist in this browser.</p>
+      <div class="dual-check">
+        <div class="dual-block">
+          <h3>For you (owner / lead)</h3>
+          <ul class="checklist" id="ownerChecklist"></ul>
+        </div>
+        <div class="dual-block">
+          <h3>For ASAP (expectations)</h3>
+          <ul class="checklist" id="memberChecklist"></ul>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button type="button" class="btn text" id="btnResetOwner">Reset owner checks</button>
+        <button type="button" class="btn text" id="btnResetMember">Reset ASAP checks</button>
+      </div>
+    </section>
+
+    <section class="panel" id="announce" data-section>
+      <h2>Announcements & DMs — copy and tweak</h2>
+      <p class="section-lede">Buttons paste templates into your clipboard. Replace bracketed bits before sending.</p>
+      <div class="announce-grid">
+        <div class="announce-card">
+          <h3>Staff-only note</h3>
+          <p>Short context for your mod channel.</p>
+          <button type="button" class="btn dark sm" data-copy-template="staff">Copy staff note</button>
+        </div>
+        <div class="announce-card">
+          <h3>Public announcement (soft)</h3>
+          <p>If you want the server to understand a role change without drama.</p>
+          <button type="button" class="btn primary sm" data-copy-template="public">Copy public post</button>
+        </div>
+        <div class="announce-card">
+          <h3>DM to ASAP (setting boundaries)</h3>
+          <p>Grants power <em>and</em> names expectations — the combo that ages well.</p>
+          <button type="button" class="btn ghost sm" data-copy-template="dm">Copy DM template</button>
+        </div>
+        <div class="announce-card">
+          <h3>“Yes, scoped” one-liner</h3>
+          <p>Fast reply if you’re mid-conversation.</p>
+          <button type="button" class="btn accent-soft sm" data-copy-template="one">Copy one-liner</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="toolkit" data-section>
+      <h2>If ASAP is reading: message lab</h2>
+      <p class="section-lede">Optional tones for how they follow up <em>after</em> you’ve read this — not to pressure you mid-decision.</p>
+      <div class="builder">
+        <div class="builder-controls">
+          <label class="sr-only" for="toneSelect">Tone</label>
+          <select id="toneSelect" class="select">
+            <option value="grateful">Grateful / boundary-aware</option>
+            <option value="offer">Offer concrete value</option>
+            <option value="short">Short ping-safe</option>
+          </select>
+          <button type="button" class="btn primary" id="btnCopyMessage">Copy message</button>
+        </div>
+        <textarea id="messageOut" rows="9" class="textarea" spellcheck="true"></textarea>
+        <p class="copy-toast" id="copyToast" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="panel" id="faq" data-section>
+      <h2>FAQ — owner edition</h2>
+      <div class="accordion" id="faqAccordion"></div>
+    </section>
+
+    <footer class="site-footer panel flat">
+      <p><strong>One file:</strong> upload this single <code>index.html</code> to GitHub (repo root or Pages branch). No <code>css/</code> or <code>js/</code> folders needed — everything is embedded so paths can’t break.</p>
+      <p class="fine">Educational / communication aid only. Grant permissions in line with your rules, your jurisdiction, and Discord’s Terms &amp; Community Guidelines.</p>
+    </footer>
+  </main>
+
+  <button type="button" class="fab" id="fabTop" aria-label="Back to top" title="Top">↑</button>
+  <div class="global-toast" id="globalToast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <script>
+(function(){
+"use strict";
+var STORAGE_OWNER="vrtx-owner-check-v2";
+var STORAGE_MEMBER="vrtx-member-check-v2";
+var CALM_KEY="vrtx-calm-v2";
+
+var sections=[
+{id:"intro",label:"Start"},{id:"lens",label:"Why"},{id:"signals",label:"Signals"},
+{id:"tiers",label:"Tiers"},{id:"compare",label:"Vs"},{id:"permissions",label:"Perms"},
+{id:"safeguards",label:"Safe"},{id:"decision",label:"Decide"},{id:"announce",label:"Copy"},
+{id:"toolkit",label:"ASAP"},{id:"faq",label:"FAQ"}
+];
+
+var permissions=[
+{name:"Administrator",why:"Bypasses most channel overrides — only if you fully trust the human and the account security story."},
+{name:"Manage Roles",why:"Sensitive: hierarchy mistakes or self-grants hurt. Usually off until you’re very sure."},
+{name:"Manage Channels",why:"Great for builders — pair with a policy on what can be moved without a second opinion."},
+{name:"Kick / Ban Members",why:"Strong tools; excellent when paired with staff review culture."},
+{name:"Moderate Members",why:"Timeouts — the gentle on-ramp to heavier moderation."},
+{name:"Manage Messages",why:"Cleanup power; low drama when audit expectations are clear."}
+];
+
+var ownerChecks=[
+"I’ve seen ASAP handle heat without performing for the crowd.",
+"I can name three recurring tasks that would leave my plate if they had more access.",
+"I’m comfortable explaining this role change in one short staff message.",
+"I have (or will add) a second mod overlap for incidents — not a single-human bottleneck.",
+"I’d rather grant scoped power now than keep saying ‘later’ while burnout grows."
+];
+
+var memberChecks=[
+"I’m OK with a trial window and a scheduled review — not ‘forever admin’ by default.",
+"I’ll document unusual actions in staff channels when it matters.",
+"I won’t use new tools to win personal arguments or farm clout.",
+"I’ll ask before experimental structure changes (channels, roles, bots).",
+"I treat this as responsibility — if I mess up, I own it and fix it fast."
+];
+
+var faq=[
+{q:"What if I want to give them *more* than Tier C but less than Administrator?",a:"Duplicate a trusted mod role, add one permission cluster at a time (e.g. channel management first), run a week, retro, then adjust. Discord’s power is combinatorial — you can craft a role that feels ‘admin’ in practice without the Administrator flag."},
+{q:"They’ve been helpful — does that obligate me?",a:"No. Helpfulness earns gratitude, not automatic authority. What earns authority is repeatable judgment + alignment with how you want the community to feel."},
+{q:"What’s the smallest ‘better’ upgrade that still feels meaningful?",a:"Often: Manage Messages + Moderate Members + a private mod channel they can actually read. That trio removes a ton of friction without touching server settings."},
+{q:"What if other members complain about favoritism?",a:"Use the public announcement template: tie the change to visible duties (hours, events, tickets). Transparency beats vibes."},
+{q:"Can I roll back?",a:"Yes — roles are versionless but you can remove permissions instantly. That’s why scoped roles beat mystery ‘admin’ — rollback is understandable to everyone."}
+];
+
+var messages={
+grateful:"Thanks again for even reading the brief.\n\nWhatever you decide, I’m grateful for the server. If a scoped role ever makes sense for the work I’m already doing, I’m happy to trial it on your terms — time window, staff review, whatever keeps you comfortable.\n\nNo pressure on timing.",
+offer:"If useful, I can own a small slice end-to-end: [e.g. weekly welcome thread + FAQ pin updates + reporting spam to staff with links].\n\nThat’s the kind of work where **timeouts + delete messages** (or whatever tier you pick) would help you more than it helps my ego. Tell me what success looks like for you and I’ll mirror it.",
+short:"Totally your call on perms — I’m here either way. If you want a trial scoped role later, I’m down to document what I change."
+};
+
+var tierBrief={
+core:"STAFF BRIEF — Tier A (Mod core) for ASAP:\nPurpose: day-to-day order without structural server changes.\nSuggested toggles (adjust to your policy): Moderate Members; Manage Messages; Read message history in mod channels as you allow.\nExplicit non-goals for this tier: role creation, server settings, webhook admin, mass channel moves without second opinion.\nReview date: [set one]",
+power:"STAFF BRIEF — Tier B (Power mod) for ASAP:\nPurpose: handle incidents when you’re offline, within written norms.\nAdds (on top of Tier A): Kick Members (and Ban only if your staff policy says so); pin/unpin where allowed; voice moderation only if your rules cover it.\nGuardrail: require staff note for bans >24h or any appeal-sensitive case.\nReview date: [set one]",
+scoped:"STAFF BRIEF — Tier C (Scoped admin energy) for ASAP:\nPurpose: ship layout/category work and bot hygiene without global Administrator.\nTypical toggles (pick subset): Manage Channels (within agreed categories); Manage Roles for roles **below** an agreed ceiling; integration/webhook management if they run events/bots.\nHard rule: no Administrator flag unless you explicitly choose it after this trial.\nReview date: [set one]"
+};
+
+var tierBullets={
+core:"• Moderate Members\n• Manage Messages\n• (Optional) priority speaker / slowmode where you allow\n• Clear list of channels they moderate",
+power:"• Everything in Tier A\n• Kick Members\n• Ban Members **only if** staff policy + training are in place\n• Pin messages where allowed",
+scoped:"• Tier B baseline **or** your custom subset\n• Manage Channels for: [list categories]\n• Manage Roles below: [role name ceiling]\n• Document integrations they may touch: [bots]"
+};
+
+var compareStaff="STAFF NOTE — why we’re choosing scoped elevation for ASAP:\nAdministrator bypasses most overrides → huge blast radius.\nInstead we’re granting named duties + explicit toggles + review date: [date].\nIf anything feels off, rollback is: remove/disable the role — no drama narrative required.";
+
+var safeBundle="SAFE ELEVATION BUNDLE (template):\n1) New role name: [ASAP · role title]\n2) Position: below [top staff role]\n3) Permissions ON: [list]\n4) Permissions OFF: Administrator, Manage Server (unless explicitly needed), Manage Roles (unless scoped)\n5) Channels: [where tools apply]\n6) Review: [date] + who runs the retro";
+
+var auditReminder="AUDIT REMINDER:\nWhen using elevated tools: short note in staff channel for bans, mass deletes, or role changes — link message IDs when possible. Future-you will thank present-you.";
+
+var copyTemplates={
+staff:"[STAFF ONLY] Quick heads-up: I’m elevating ASAP to **[tier / role name]** so they can help with **[specific duties]**. This is scoped — not global Administrator. Review on **[date]**. Ping me if anything feels off.",
+public:"Small team update: **ASAP** is helping more with **[duties]** and has updated permissions to match. If you ever have concerns, reach out to staff privately — we’re here to keep the place fair and calm.",
+dm:"Hey ASAP — I’m good with giving you more tools. Here’s the deal: **[role name]** covers **[duties]**. What it doesn’t cover: **[hard limits]**. Trial until **[date]**; we’ll retro in staff. Thanks for carrying weight around here — use the tools like the server depends on them (because it does).",
+one:"Yes — I’m down to bump you, but scoped: **[role]** for **[duties]**, trial until **[date]**. Administrator isn’t on the table right now; we can revisit if the trial goes clean."
+};
+
+var commitLabels=["Less drama when they’re online","Explains bans/timeouts calmly","Uses staff channels, not theater","Ships small improvements unprompted"];
+
+function $(s,r){return(r||document).querySelector(s)}
+function $all(s,r){return[].slice.call((r||document).querySelectorAll(s))}
+
+function escapeHtml(t){var d=document.createElement("div");d.textContent=t;return d.innerHTML}
+function escapeAttr(t){return String(t).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;")}
+
+function copyText(text,inline){
+var g=$("#globalToast");
+var line=inline||$("#copyToast");
+function show(m){
+if(g){g.textContent=m;g.classList.add("is-visible");clearTimeout(show.g);show.g=setTimeout(function(){g.classList.remove("is-visible");g.textContent=""},2200)}
+if(line){line.textContent=m;clearTimeout(show.i);show.i=setTimeout(function(){line.textContent=""},2400)}
+}
+if(!text){show("Nothing to copy.");return}
+if(navigator.clipboard&&navigator.clipboard.writeText){
+navigator.clipboard.writeText(text).then(function(){show("Copied.")},function(){fallback(text,show)})
+}else fallback(text,show)
+}
+function fallback(text,show){
+var ta=document.createElement("textarea");ta.value=text;ta.style.position="fixed";ta.style.left="-9999px";document.body.appendChild(ta);ta.select();
+try{document.execCommand("copy");show("Copied.")}catch(e){show("Select & copy manually.")}
+document.body.removeChild(ta)
+}
+
+function motion(){return document.body.classList.contains("calm-mode")?"auto":"smooth"}
+function scrollToId(id){var el=document.getElementById(id);if(el)el.scrollIntoView({behavior:motion(),block:"start"})}
+
+function initRail(){
+var list=$("#railList");if(!list)return;
+sections.forEach(function(s){
+var li=document.createElement("li");
+var a=document.createElement("a");
+a.href="#"+s.id;a.setAttribute("data-smooth","");a.title=s.label;a.setAttribute("aria-label",s.label);
+li.appendChild(a);list.appendChild(li)
+})
+}
+
+function initScrollProgress(){
+var fill=$("#scrollProgress");if(!fill)return;
+function onScroll(){
+var d=document.documentElement;var st=d.scrollTop||document.body.scrollTop;var mx=d.scrollHeight-d.clientHeight;
+fill.style.width=(mx<=0?100:(st/mx)*100)+"%"
+}
+window.addEventListener("scroll",onScroll,{passive:true});onScroll()
+}
+
+function initSectionObserver(){
+var links=$all(".rail-list a");var map={};links.forEach(function(a,i){map[sections[i].id]=a});
+var obs=new IntersectionObserver(function(entries){
+entries.forEach(function(en){if(!en.isIntersecting)return;var id=en.target.id;Object.keys(map).forEach(function(k){map[k].classList.toggle("active",k===id)})})
+},{rootMargin:"-42% 0px -42% 0px",threshold:0});
+sections.forEach(function(s){var el=document.getElementById(s.id);if(el)obs.observe(el)})
+}
+
+document.addEventListener("click",function(e){
+var t=e.target.closest("[data-smooth]");
+if(!t||!t.getAttribute("href")||t.getAttribute("href").charAt(0)!=="#")return;
+var id=t.getAttribute("href").slice(1);var el=document.getElementById(id);if(!el)return;
+e.preventDefault();el.scrollIntoView({behavior:motion(),block:"start"})
+});
+
+function initHero(){
+var st=$("#statSections");if(st)st.textContent=String(sections.length);
+$("#btnLens")&&$("#btnLens").addEventListener("click",function(){scrollToId("lens")});
+$("#btnTiers")&&$("#btnTiers").addEventListener("click",function(){scrollToId("tiers")});
+$("#btnAnnounce")&&$("#btnAnnounce").addEventListener("click",function(){scrollToId("announce")});
+$("#btnDecision")&&$("#btnDecision").addEventListener("click",function(){scrollToId("decision")})
+}
+
+function initFlip(){
+$all("[data-flip]").forEach(function(card){
+function go(){card.classList.toggle("is-flipped")}
+card.addEventListener("click",go);
+card.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();go()}})
+})
+}
+
+function initPerms(){
+var body=$("#permBody");if(!body)return;
+permissions.forEach(function(p){
+var tr=document.createElement("tr");
+var line=p.name+" — "+p.why;
+tr.innerHTML="<td><strong>"+escapeHtml(p.name)+"</strong></td><td>"+escapeHtml(p.why)+"</td><td><button type=\"button\" class=\"btn-mini\" data-copy=\""+escapeAttr(line)+"\">Copy</button></td>";
+body.appendChild(tr)
+});
+body.addEventListener("click",function(e){var b=e.target.closest("[data-copy]");if(!b)return;copyText(b.getAttribute("data-copy"))})
+}
+
+function initPath(){
+var tabs=$all(".path-tab");
+var panels={stack:{p:$("#panelStack")},time:{p:$("#panelTime")}};
+tabs.forEach(function(tab){
+tab.addEventListener("click",function(){
+var path=tab.getAttribute("data-path");
+tabs.forEach(function(t){var on=t===tab;t.classList.toggle("active",on);t.setAttribute("aria-selected",on?"true":"false")});
+Object.keys(panels).forEach(function(k){var on=k===path;var p=panels[k].p;if(p){p.classList.toggle("active",on);p.hidden=!on}})
+})
+})
+}
+
+function load(key){try{var r=localStorage.getItem(key);return r?JSON.parse(r):{}}catch(e){return{}}}
+function save(key,o){try{localStorage.setItem(key,JSON.stringify(o))}catch(e){}}
+
+function buildChecklist(ulId,key,items){
+var ul=$(ulId);if(!ul)return;var state=load(key);var prefix=ulId.replace("#","");
+function persist(){
+var o={};items.forEach(function(_,j){var el=document.getElementById(prefix+"-"+j);if(el)o[prefix+"-"+j]=el.checked});
+save(key,o)
+}
+items.forEach(function(text,i){
+var id=prefix+"-"+i;
+var li=document.createElement("li");
+var lab=document.createElement("label");lab.className="check-item"+(state[id]?" is-done":"");lab.setAttribute("for",id);
+var inp=document.createElement("input");inp.type="checkbox";inp.id=id;inp.checked=!!state[id];
+var sp=document.createElement("span");sp.textContent=text;
+lab.appendChild(inp);lab.appendChild(sp);li.appendChild(lab);ul.appendChild(li);
+inp.addEventListener("change",function(){lab.classList.toggle("is-done",inp.checked);persist()})
+})
+}
+
+function clearChecklist(ulId,key,count){
+try{localStorage.removeItem(key)}catch(e){}
+var prefix=ulId.replace("#","");
+for(var i=0;i<count;i++){
+var inp=document.getElementById(prefix+"-"+i);if(!inp)continue;
+inp.checked=false;var lab=inp.closest(".check-item");if(lab)lab.classList.remove("is-done")
+}
+}
+
+function initDecision(){
+buildChecklist("#ownerChecklist",STORAGE_OWNER,ownerChecks);
+buildChecklist("#memberChecklist",STORAGE_MEMBER,memberChecks);
+$("#btnResetOwner")&&$("#btnResetOwner").addEventListener("click",function(){clearChecklist("#ownerChecklist",STORAGE_OWNER,ownerChecks.length)});
+$("#btnResetMember")&&$("#btnResetMember").addEventListener("click",function(){clearChecklist("#memberChecklist",STORAGE_MEMBER,memberChecks.length)})
+}
+
+var selectedTier="core";
+function updateTierSummary(){
+var el=$("#tierSummary");if(!el)return;
+var txt={
+core:"Selected: <strong>Tier A — Mod core</strong>. Best when you want calmer chat, faster spam cleanup, and less owner ping — without handing channel architecture.",
+power:"Selected: <strong>Tier B — Power mod</strong>. Best when ASAP already operates like night-shift staff and your bottleneck is <em>incidents</em>, not <em>renaming channels</em>.",
+scoped:"Selected: <strong>Tier C — Scoped admin energy</strong>. Best when they’re effectively a builder/operator: events, categories, bot roles — still not a blank Administrator check."
+};
+el.innerHTML=txt[selectedTier]||txt.core
+}
+
+function initTiers(){
+updateTierSummary();
+var cards=$all(".tier-card");
+cards.forEach(function(c){
+c.addEventListener("click",function(){
+selectedTier=c.getAttribute("data-tier")||"core";
+cards.forEach(function(x){
+var on=x===c;x.classList.toggle("selected",on);x.setAttribute("aria-checked",on?"true":"false")
+});
+updateTierSummary()
+})
+});
+$("#btnCopyTierBrief")&&$("#btnCopyTierBrief").addEventListener("click",function(){copyText(tierBrief[selectedTier]||tierBrief.core)});
+$("#btnCopyTierBullets")&&$("#btnCopyTierBullets").addEventListener("click",function(){copyText(tierBullets[selectedTier]||tierBullets.core)})
+}
+
+function initCompareBtns(){
+$("#btnCopyCompare")&&$("#btnCopyCompare").addEventListener("click",function(){copyText(compareStaff)});
+$("#btnCopySafeBundle")&&$("#btnCopySafeBundle").addEventListener("click",function(){copyText(safeBundle)});
+$("#btnCopyAuditReminder")&&$("#btnCopyAuditReminder").addEventListener("click",function(){copyText(auditReminder)});
+$("#btnCopySafeguards")&&$("#btnCopySafeguards").addEventListener("click",function(){
+copyText("Safeguard stack:\n1) Role below top staff\n2) Named role = job title\n3) Pinned staff policy (solo vs pair-eyes)\n4) Overlap mod coverage\n5) Trial window + retro date [fill]")
+})
+}
+
+function initAnnounce(){
+var sec=$("#announce");if(!sec)return;
+sec.addEventListener("click",function(e){
+var b=e.target.closest("[data-copy-template]");if(!b)return;var k=b.getAttribute("data-copy-template");if(copyTemplates[k])copyText(copyTemplates[k])
+})
+}
+
+function initToolkit(){
+var sel=$("#toneSelect"),ta=$("#messageOut"),btn=$("#btnCopyMessage");
+if(!sel||!ta||!btn)return;
+function sync(){ta.value=messages[sel.value]||messages.grateful}
+sel.addEventListener("change",sync);sync();
+btn.addEventListener("click",function(){copyText(ta.value.trim(),$("#copyToast"))})
+}
+
+function initFaq(){
+var root=$("#faqAccordion");if(!root)return;
+faq.forEach(function(item){
+var wrap=document.createElement("div");wrap.className="accordion-item";
+var btn=document.createElement("button");btn.type="button";btn.className="acc-btn";btn.setAttribute("aria-expanded","false");
+btn.innerHTML="<span>"+escapeHtml(item.q)+"</span><span class=\"acc-icon\" aria-hidden=\"true\">+</span>";
+var panel=document.createElement("div");panel.className="acc-panel";panel.innerHTML="<p>"+escapeHtml(item.a)+"</p>";
+btn.addEventListener("click",function(){
+var open=btn.getAttribute("aria-expanded")==="true";
+$all(".acc-btn",root).forEach(function(x){x.setAttribute("aria-expanded","false")});
+$all(".acc-panel",root).forEach(function(x){x.classList.remove("open")});
+if(!open){btn.setAttribute("aria-expanded","true");panel.classList.add("open")}
+});
+wrap.appendChild(btn);wrap.appendChild(panel);root.appendChild(wrap)
+})
+}
+
+function initFab(){
+var fab=$("#fabTop");if(!fab)return;
+function t(){fab.classList.toggle("visible",window.scrollY>380)}
+window.addEventListener("scroll",t,{passive:true});t();
+fab.addEventListener("click",function(){window.scrollTo({top:0,behavior:motion()})})
+}
+
+function initCalm(){
+var b=$("#focusMode");if(!b)return;
+try{if(localStorage.getItem(CALM_KEY)==="1"){document.body.classList.add("calm-mode");document.documentElement.classList.add("calm-root");b.setAttribute("aria-pressed","true")}}catch(e){}
+b.addEventListener("click",function(){
+var on=!document.body.classList.contains("calm-mode");
+document.body.classList.toggle("calm-mode",on);
+document.documentElement.classList.toggle("calm-root",on);
+b.setAttribute("aria-pressed",on?"true":"false");
+try{if(on)localStorage.setItem(CALM_KEY,"1");else localStorage.removeItem(CALM_KEY)}catch(e){}
+})
+}
+
+function initCommit(){
+var row=$("#commitRow");if(!row)return;
+commitLabels.forEach(function(lbl,i){
+var btn=document.createElement("button");btn.type="button";btn.className="commit-chip";btn.textContent=lbl;
+btn.addEventListener("click",function(){btn.classList.toggle("on")});
+row.appendChild(btn)
+})
+}
+
+initRail();initScrollProgress();initSectionObserver();initHero();initFlip();initPerms();initPath();
+initDecision();initTiers();initCompareBtns();initAnnounce();initToolkit();initFaq();initFab();initCalm();initCommit();
+})();
+  </script>
+</body>
+</html>
